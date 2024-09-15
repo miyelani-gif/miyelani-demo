@@ -1,0 +1,35 @@
+global
+log /dev/log local0
+log /dev/log local1 notice
+
+defaults
+    mode http
+    timeout client 10s
+    timeout connect 5s
+    timeout server 10s
+    timeout http-request 10s
+    log global
+    option httplog
+
+# Frontend for cctv
+frontend cctv
+    bind *:443 ssl crt /etc/pki/tls/certs/cctv-mobile.pem crt /etc/pki/tls/certs/cctv-web.pem ssl-min-ver TLSv1.2
+    mode http
+    redirect scheme https if !{ ssl_fc }
+
+    # ACL for "cctv-web.ops.tii.ie"
+    acl ACL_web.ops.tii.ie hdr(host) -i www.cctv-web.ops.tii.ie cctv-web.ops.tii.ie
+    use_backend cctv-web if ACL_web.ops.tii.ie
+
+    # ACL for "cctv-mobile.ops.tii.ie"
+    acl ACL_mobile.ops.tii.ie hdr(host) -i www.cctv-mobile.ops.tii.ie cctv-mobile.ops.tii.ie
+    use_backend cctv-mobile if ACL_mobile.ops.tii.ie
+
+# Backend for cctv
+backend cctv-web
+    server dc1-cctv-was-1 172.129.1.164:443 check
+    server dc2-cctv-was-1 172.129.1.175:443 check backup
+
+backend cctv-mobile
+    server dc1-cctv-mobs-1 172.129.1.163:443 check
+    server dc2-cctv-mobs-1 172.129.1.174:443 check backup
