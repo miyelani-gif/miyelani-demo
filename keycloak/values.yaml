@@ -1,0 +1,36 @@
+ 
+auth:
+  adminUser: "ktcadmin" # adminUser is set in Terraform deployment
+  adminPassword: "client_pass" # adminPassword is set in Terraform deployment
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "postgres"
+    existingSecret: ""
+    secretKeys: 
+      userPasswordKey: postgres-password
+    username: postgres
+    password: "postgres"
+    database: keycloak_postgres
+  architecture: standalone
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  tls: true
+  selfSigned: true
+  annotations:
+     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  hostname: tsp1-acc-keycloak.bgr.tollingservices.eu # Hostname is set in Terraform deployment
+
+# externalDatabase:
+#  host: Configured-in-terraform # Postgres hostname is set in Terraform deployment
+#  user: Configured-in-terraform # Postgres username is set in Terraform deployment
+#  password: Configured-in-terraform # Postgres password is set in Terraform deployment
+#  database: keycloak
+#  port: 5432
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 11
+# multiple instances or autoscaling with minimum 1 KC_PROXY you need to look up in the documentation
+ 

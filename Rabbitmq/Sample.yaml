@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+  template:
+    metadata:
+      labels:
+        app: python-app
+    spec:
+      containers:
+      - name: python-container
+        image: python:3.9-slim  # Using a lightweight Python 3.9 image
+        command: ["tail", "-f", "/dev/null"]  # Keeps the container running so you can exec into it
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        volumeMounts:
+          - name: scripts
+            mountPath: /usr/src/app
+      volumes:
+        - name: scripts
+          emptyDir: {}  # You can also mount a ConfigMap or persistent volume here if you need

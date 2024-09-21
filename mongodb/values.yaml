@@ -1,0 +1,14 @@
+# bitnami/mongodb (version 15.6.22)
+
+auth:
+  rootUser: root
+  rootPassword: root
+  usernames: "admin"
+  passwords: "admin"
+  databases: "admin"
+
+architecture: replicaset
+useStatefulSet: true
+replicaCount: 3
+auth:
+  replicaSetKey: "client_pass"

@@ -1,0 +1,14 @@
+# bitnami/memcached (version 7.4.15)
+
+ replicaCount: 3
+ autoscaling:
+   minReplicas: 3
+ pdb:
+   minAvailable: 3
+
+ auth:
+   enabled: false
+   username: "admin" # Admin username is set in Terraform deployment
+   password: "admin" # Password is set in Terraform deployment
+
+ architecture: "high-availability"

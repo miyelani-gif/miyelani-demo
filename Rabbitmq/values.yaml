@@ -1,0 +1,19 @@
+persistence:
+  size: 10Gi
+
+replicaCount: 3 
+
+auth:
+  username: admin
+  password: admin
+
+extraPlugins: "rabbitmq_auth_backend_ldap rabbitmq_consistant_hash_exchange rabbitmq_federation rabbitmq_federation_management rabbitmq_sharding rabbitmq_shovel rabbitmq_shovel_management"
+
+ingress:
+  enabled: true
+  hostname: tsp1-acc-rabbitmq.bgr.tollingservices.eu
+  ingressClassName: nginx
+  tls: true
+  selfSigned: true
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"

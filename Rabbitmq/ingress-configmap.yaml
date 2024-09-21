@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tcp-services
+  namespace: ingress-nginx
+data:
+  5672: "rabbitmq/rabbitmq:5672"
+  6379: "redis/redis-master:6379"
+  11211: "memcached/memcached:11211"

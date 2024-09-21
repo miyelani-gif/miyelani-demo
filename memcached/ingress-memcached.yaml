@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  generation: 1
+  name: memcached
+  namespace: memcached
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: tsp1-acc-memcached.bgr.tollingservices.eu
+    http:
+      paths:
+      - backend:
+          service:
+            name: memcached
+            port:
+              number: 11211
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - tsp1-acc-memcached.bgr.tollingservices.eu
+    secretName: tsp1-acc-memcached.bgr.tollingservices.eu-tls

@@ -1,0 +1,17 @@
+# bitnami/redis (version 20.0.3)
+#
+#replica:
+#  persistence:
+#    enabled: false
+
+#master:
+#  persistence:
+#    enabled: false
+ingress:
+  enabled: true
+  hostname: tsp1-acc-redis.bgr.tollingservices.eu
+  ingressClassName: nginx
+  tls: true
+  selfSigned: true
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
