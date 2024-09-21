@@ -1,3 +1,4 @@
+# helm values for rabbitmq
 persistence:
   size: 10Gi
 
