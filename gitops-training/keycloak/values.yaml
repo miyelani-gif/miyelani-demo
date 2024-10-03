@@ -1,0 +1,14 @@
+auth:
+  adminUser: "ktcadmin" # adminUser is set in Terraform deployment
+  adminPassword: "client_pass" # adminPassword is set in Terraform deployment
+postgresql:
+  enabled: true
+  auth:
+    postgresPassword: "postgres"
+    existingSecret: ""
+    secretKeys: 
+      userPasswordKey: postgres-password
+    username: postgres
+    password: "postgres"
+    database: keycloak_postgres
+  architecture: standalone
